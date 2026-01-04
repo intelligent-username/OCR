@@ -46,7 +46,8 @@ def predict(req: PredictRequest):
     # Input comes in as flat 784 list -> (1 batch, 1 channel, 28 height, 28 width)
     x = t.tensor(req.image, dtype=t.float32).view(1, 1, 28, 28)
 
-
+    # Match the loader.py normalization
+    x = (x - 0.1307) / 0.3081
     
     # ROTATE FOR EMNIST
     # The frontend sends an "Upright" image.

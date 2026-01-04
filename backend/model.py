@@ -1,6 +1,3 @@
-# This definition's not even needed
-# Should probably delete later, but it's here as reference
-
 """
 VGG-style CNN for EMNIST character classification.
 See the README for a better description.
@@ -27,7 +24,8 @@ class ConvBlock(nn.Module):
 
 class EMNIST_VGG(nn.Module):
     """
-    Final CNN Structure. 
+    The actual CNN that will be trained.
+    Brought to you by composition.
     """
 
     def __init__(self, num_classes=62):
@@ -58,10 +56,6 @@ class EMNIST_VGG(nn.Module):
         self.fc2 = nn.Linear(256, num_classes)
 
     def forward(self, x):
-        """
-        Forward Pass, Returns Logits
-        """
-
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.conv2(x)
@@ -73,12 +67,5 @@ class EMNIST_VGG(nn.Module):
         x = self.flatten(x)
         x = F.relu(self.fc1(x))
         x = self.dropout(x)
-        logits = self.fc2(x)
-        return logits
-
-    # def predict_topk(self, x, k=10):
-    #     """Returns top-k class indices and probabilities"""
-    #     logits = self.forward(x)
-    #     probs = F.softmax(logits, dim=1)
-    #     topk_vals, topk_idx = torch.topk(probs, k=k, dim=1)
-    #     return topk_idx, topk_vals
+        x = self.fc2(x)
+        return x
