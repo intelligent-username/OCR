@@ -78,8 +78,8 @@ function processingLoop() {
                 // 2. Downsample (Using the modified function below)
                 const temp = getEMNISTInput(alphaValues);
 
-                console.log("Input Array: ", inputArray);
-                console.log("Temp: ", temp);
+                // console.log("Input Array: ", inputArray);
+                // console.log("Temp: ", temp);
 
                 // 3. Visualize Prediction Input (Grayscale support)
                 predCtx.clearRect(0, 0, predCanvas.width, predCanvas.height);
