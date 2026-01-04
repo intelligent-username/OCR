@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>EMNIST OCR Canvas</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <!-- Header / Banner -->
+    <header class="header">
+    
+        <h1>Handwritten Character OCR</h1>
+        <p class="underline">
+            Draw a single character on the canvas below.
+        </p>
+        <p>
+            The model will predict the most likely EMNIST characters.
+        </p>
+        <p>
+            Please draw nice and slow, as I haven't set up the processor to run very fast yet.
+        </p>
+    
+    </header>
+
+    <!-- Main Layout -->
+    <main class="container">
+        <!-- Left: Drawing Canvas -->
+        <section class="drawing-section">
+            <h2>Draw Here</h2>
+            <canvas
+                id="draw-canvas"
+                width="420"
+                height="420"
+                style="width: 420px; height: 420px; border: 1px solid black;"
+            ></canvas>
+            <div class="controls">
+                <button id="clear-btn">Clear</button>
+            </div>
+        </section>
+
+        <!-- Right side reserved for predictions (added later) -->
+        <section class="prediction-section">
+            <h2>Predictions</h2>
+            <canvas
+                id="prediction-canvas"
+                width="420"
+                height="420"
+            ></canvas>
+        </section>
+    </main>
+
+    <script src="/static/utils/draw.js"></script>
+    <script src="/static/main.js"></script>
+
+</body>
+</html>
