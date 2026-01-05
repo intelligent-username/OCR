@@ -1,6 +1,6 @@
 # Optical Character Recognition
 
-![Demonstration](imgs/demo.png)
+![Demonstration](../imgs/demo.png)
 
 Use the tool live [here](https://ocr.varak.dev).
 
