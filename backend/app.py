@@ -41,7 +41,7 @@ print(f"Server running on: {device}")
 # MODEL DOWNLOAD
 
 # 1. Setup paths
-REPO_ID = "compendious/EMNIST-OCR-WEIGHTS/"
+REPO_ID = "compendious/EMNIST-OCR-WEIGHTS"
 FILENAME = "EMNIST_CNN.pth"
 
 # NOTE: If I ever make this repo private, I need to add authentication tokens to hf_hub_download calls.

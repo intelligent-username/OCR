@@ -12,7 +12,7 @@ app_port: 7860
 
 Use the tool live [here](https://ocr.varak.dev).
 
-This is an optical character recognition (OCR) tool that extracts characters from drawings.  Using basic JS/HTML, we create a canvas to draw on, convert the drawing toa usable 28x28 pixel format, and send to the backend for prediction. In the backend, we use FastAPI to handle requests, with the only routes being `\` for the home page and `\predict` for predictions. The prediction route uses a pre-trained CNN model that is able to recognize all English characters and digits. For more details on the architecture, the dataset, and training process, check out [this writeup](https://github.com/intelligent-username/CNN/tree/main/char), which presents the simpler of two models trained for my writeup on CNNs (this one).
+This is an optical character recognition (OCR) tool that extracts characters from drawings.  Using basic JS/HTML, we create a canvas to draw on, convert the drawing toa usable 28x28 pixel format, and send to the backend for prediction. In the backend, we use FastAPI to handle requests, with the only routes being `/` for the home page and `/predict` for predictions. The prediction route uses a pre-trained CNN model that is able to recognize all English characters and digits. For more details on the architecture, the dataset, and training process, check out [this writeup](https://github.com/intelligent-username/CNN/tree/main/char), which presents the simpler of two models trained for my writeup on CNNs (this one). For a better understanding of CNNs in general, check out this [broader writeup](https://github.com/intelligent-username/CNN).
 
 ## Usage
 
