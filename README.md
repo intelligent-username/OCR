@@ -8,7 +8,7 @@ app_port: 7860
 ---
 # Optical Character Recognition
 
-![Demonstration](imgs/demo.png)
+![Demonstration](https://varak.dev/host/EMNIST-OCR-DEMO.webp)
 
 Use the tool live [here](https://ocr.varak.dev).
 
