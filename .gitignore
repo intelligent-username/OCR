@@ -2,9 +2,11 @@
 
 **pycache**/
 *cpython*
+backend/EMNIST_CNN.pth
 
 # Tests, cache, etc.
 *test*
 *TEMP*
 *old*
 *OLD*
+
