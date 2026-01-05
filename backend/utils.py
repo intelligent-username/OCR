@@ -1,7 +1,9 @@
 import torch as t
 import numpy as np
 
-def predict_image(image: list[float], model, device) -> dict:
+MAX_CLASSES = 15
+
+def predict_image(image: list[float], model, device, top_k: int = 10) -> dict:
     # RESHAPE
     # Input comes in as flat 784 list -> (1 batch, 1 channel, 28 height, 28 width)
     x = t.tensor(image, dtype=t.float32).view(1, 1, 28, 28)
@@ -38,10 +40,13 @@ def predict_image(image: list[float], model, device) -> dict:
     # # ------------------------------------ #
 
 
+    # Ensure top_k is an int within valid range
+    top_k = max(1, min(MAX_CLASSES, int(top_k)))
+
     with t.no_grad():
         logits = model(x)
         probs = t.softmax(logits, dim=1)
-        topk = t.topk(probs, k=10)
+        topk = t.topk(probs, k=top_k)
     
     label_map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     

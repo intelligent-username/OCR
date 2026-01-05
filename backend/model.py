@@ -3,8 +3,6 @@ VGG-style CNN for EMNIST character classification.
 See the README for a better description.
 """
 
-# Note: input layers aren't needed since the first convolutional layer will work with the images directly
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

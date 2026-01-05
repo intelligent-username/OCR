@@ -1,2 +1,8 @@
+# Cache 
+
 **pycache**/
 *cpython*
+
+# Tests
+*test*
+*TEMP*

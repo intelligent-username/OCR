@@ -53,8 +53,10 @@ async def read_index():
 
 class PredictRequest(BaseModel):
     image: list[float]  # flat 28*28 array
+    k: int = 10  # number of top predictions to return
 
 @app.post("/predict")
 def predict(req: PredictRequest):
     print(f"Predicting... +{1+1}")
-    return predict_image(req.image, model, device)
+    # top_k currently set to 10 to preserve existing behavior
+    return predict_image(req.image, model, device, top_k=req.k)

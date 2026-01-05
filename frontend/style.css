@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Consolas', 'Courier New', monospace;
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
@@ -66,7 +66,7 @@ body {
 }
 
 #clear-btn {
-    background-color: #666;
+    background-color: #777;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -83,7 +83,7 @@ body {
 .prediction-section h2 {
     text-align: center;
     margin-top: 0;
-    color: #333;
+    color: #292929;
 }
 
 #prediction-canvas {
@@ -94,7 +94,6 @@ body {
     background-color: white;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -104,4 +103,107 @@ body {
     .drawing-section, .prediction-section {
         min-width: 280px;
     }
+}
+
+.slider-container {
+    width: 100%; /* Occupy full width of parent */
+    text-align: center;
+    padding: 10px 0;
+}
+
+#k-slider {
+    /* -webkit-appearance: none; */
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Chrome/Safari/Edge Thumb */
+#k-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#k-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Firefox Thumb */
+#k-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: black;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#k-value {
+    font-family: monospace;
+    font-size: 14px;
+    margin-top: 8px;
+    color: #333;
+}
+/* Footer Styles */
+footer.footer {
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.9em;
+    color: #666;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+    flex: 1;
+    min-width: 150px;
+}
+
+.footer-center {
+    flex: 2;
+    text-align: center;
+    min-width: 300px;
+}
+
+.footer-right {
+    flex: 1;
+    text-align: right;
+    min-width: 120px;
+}
+
+.footer-right a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-right a:hover {
+    color: #0969da;
+}
+
+.footer-right svg {
+    transition: fill 0.3s ease;
+}
+
+.footer-right a:hover svg {
+    fill: #0969da;
 }

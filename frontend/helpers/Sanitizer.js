@@ -1,5 +1,7 @@
 const blockSize = 15; // 420 / 28 = 15
 
+// Input Processor
+
 function getEMNISTInput(binaryArray, canvasWidth = 420, canvasHeight = 420, blockSize = 15) {
     const downsampled = new Float32Array(28 * 28);
 

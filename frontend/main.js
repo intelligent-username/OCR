@@ -1,4 +1,4 @@
-// main.js
+// main.js is just for putting everything together quickly and simply. Don't grow into a monolith or complicate the project.
 
 const canvas = document.getElementById("draw-canvas");
 // Use willReadFrequently to optimize repeated getImageData readbacks
@@ -20,6 +20,57 @@ let lastLogTime = 0;
 let logGapMs = 250;
 // Processing loop control
 let processingLoopRunning = false;
+// Store latest predictions
+let latestPredictions = [];
+
+// Function to redraw the graph with current k
+function redrawGraph() {
+    const k = parseInt(document.getElementById("k-slider").value);
+    if (latestPredictions.length > 0) {
+        drawPredictionGraph(predCanvas, latestPredictions.slice(0, k));
+    }
+}
+
+// Function to perform prediction with current canvas content
+function performPrediction() {
+    try {
+        // 1. Extract and Normalize (Don't Binarize!)
+        const inputArray = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const alphaValues = Array.from(inputArray.data)
+            .filter((_, i) => i % 4 === 3) // Keep only Alpha
+            .map(a => a / 255.0);          // Normalize 0-255 to 0.0-1.0
+
+        // 2. Downsample (Using the modified function below)
+        const temp = getEMNISTInput(alphaValues);
+
+        // console.log("Input Array: ", inputArray);
+        // console.log("Temp: ", temp);
+
+        // (Preview drawing removed — bar graph will visualize predictions)
+
+        // Send to server with error handling (non-blocking)
+        fetch("/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image: temp, k: 15 }),
+        })
+        .then(async response => {
+            if (!response.ok) {
+                const text = await response.text();
+                throw new Error(`Server error: ${response.status} ${response.statusText} - ${text}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // console.log("Predictions:", data.predictions);
+            latestPredictions = data.predictions;
+            redrawGraph();
+        })
+        .catch(error => console.error("Error:", error));
+    } catch (err) {
+        console.error("Prediction error:", err);
+    }
+}
 
 // Prevent context menu on right click
 canvas.addEventListener("contextmenu", (e) => {
@@ -68,56 +119,7 @@ function processingLoop() {
 
         // Schedule after paint
         requestAnimationFrame(() => {
-            try {
-                // 1. Extract and Normalize (Don't Binarize!)
-                const inputArray = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const alphaValues = Array.from(inputArray.data)
-                    .filter((_, i) => i % 4 === 3) // Keep only Alpha
-                    .map(a => a / 255.0);          // Normalize 0-255 to 0.0-1.0
-
-                // 2. Downsample (Using the modified function below)
-                const temp = getEMNISTInput(alphaValues);
-
-                // console.log("Input Array: ", inputArray);
-                // console.log("Temp: ", temp);
-
-                // 3. Visualize Prediction Input (Grayscale support)
-                predCtx.clearRect(0, 0, predCanvas.width, predCanvas.height);
-                const scale = predCanvas.width / 28;
-
-                for (let yy = 0; yy < 28; yy++) {
-                    for (let xx = 0; xx < 28; xx++) {
-                        const val = temp[yy * 28 + xx];
-                        
-                        // VISUALIZATION ONLY: 
-                        // We want Ink (1.0) to look Black, and Bg (0.0) to look White.
-                        // So we invert the color calculation for the human eye.
-                        const c = Math.floor(255 * (1 - val)); 
-                        predCtx.fillStyle = `rgb(${c}, ${c}, ${c})`;
-                        predCtx.fillRect(xx * scale, yy * scale, scale, scale);
-                    }
-                }
-
-                // Send to server with error handling (non-blocking)
-                fetch("/predict", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ image: temp }),
-                })
-                .then(async response => {
-                    if (!response.ok) {
-                        const text = await response.text();
-                        throw new Error(`Server error: ${response.status} ${response.statusText} - ${text}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("Predictions:", data.predictions);
-                })
-                .catch(error => console.error("Error:", error));
-            } catch (err) {
-                console.error("Processing loop error:", err);
-            }
+            performPrediction();
         });
     }
 
@@ -177,4 +179,8 @@ document.getElementById("clear-btn").addEventListener("click", () => {
     predCtx.clearRect(0, 0, predCanvas.width, predCanvas.height);
     predCtx.fillStyle = 'white';
     predCtx.fillRect(0, 0, predCanvas.width, predCanvas.height);
+    latestPredictions = [];
 });
+
+// Slider change listener to redraw graph
+document.getElementById("k-slider").addEventListener("input", redrawGraph);

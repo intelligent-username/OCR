@@ -16,10 +16,6 @@
         <p>
             Use this to test out how recognition models work or to see how clear your handwriting is to a computer.
         </p>
-
-        <p>
-            Currently supports 
-        </p>
     
     </header>
 
@@ -39,7 +35,7 @@
             </div>
         </section>
 
-        <!-- Right side reserved for predictions (added later) -->
+        <!-- Right side reserved for predictions-->
         <section class="prediction-section">
             <h2>Predictions</h2>
             <canvas
@@ -47,10 +43,17 @@
                 width="420"
                 height="420"
             ></canvas>
+            <div class="slider-container">
+                <input type="range" id="k-slider" min="1" max="15" step="1" value="10">
+                <div id="k-value">10</div>
+            </div>
         </section>
     </main>
 
-    <script src="/static/utils/draw.js"></script>
+    <script src="/static/helpers/barGraphs.js"></script>
+    <script src="/static/helpers/Sanitizer.js"></script>
+    <script src="/static/helpers/kSlider.js"></script>
+    <script src="/static/helpers/footer.js"></script>
     <script src="/static/main.js"></script>
 
 </body>
