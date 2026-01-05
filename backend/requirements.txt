@@ -1,9 +1,0 @@
-# Backend stuff
-fastapi
-uvicorn
-aiofiles
-
-# Model stuff
-torch
-numpy
-pydantic

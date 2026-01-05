@@ -1,0 +1,17 @@
+name: Sync to Hugging Face
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Push to HF
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git push --force https://intelligent-username:$HF_TOKEN@huggingface.co/spaces/compendious/EMNIST-OCR main

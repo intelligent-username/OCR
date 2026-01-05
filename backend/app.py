@@ -2,7 +2,8 @@ import torch as t
 import asyncio
 import os
 
-from utils import predict_image
+from backend.utils import predict_image
+from backend.model import EMNIST_VGG
 
 from pydantic import BaseModel
 
@@ -11,7 +12,6 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 
-from model import EMNIST_VGG
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,18 +37,18 @@ model = EMNIST_VGG(num_classes=62).to(device)
 # Note: If this fails, it means your file is still the old "full model" format.
 # If so, re-run your training script to generate a clean state_dict.
 try:
-    model.load_state_dict(t.load("EMNIST_CNN.pth", map_location=device, weights_only=True))
+    model.load_state_dict(t.load("backend/EMNIST_CNN.pth", map_location=device, weights_only=True))
 except Exception as e:
     print("State dict load failed, trying legacy full-load (not recommended for long term):", e)
-    model = t.load("../models/EMNIST_CNN.pth", map_location=device, weights_only=False)
+    model = t.load("backend/EMNIST_CNN.pth", map_location=device, weights_only=False)
 
 model.eval()
 
-app.mount("/static", StaticFiles(directory="../frontend"), name="static")
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 @app.get("/")
 async def read_index():
-    path = os.path.join("..", "frontend", "index.html")
+    path = os.path.join("frontend", "index.html")
     return FileResponse(path)
 
 class PredictRequest(BaseModel):
