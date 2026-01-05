@@ -1,5 +1,46 @@
 # Optical Character Recognition
 
-![Example](imgs/init.png)
+![Demonstration](imgs/demo.png)
 
-This is an optical character recognition (OCR) tool that extracts characters from drawings. It's simply a deployment of the `chars` model from my [CNN writeup](https://github.com/intelligent-username/CNN). The OCR model is trained on the EMNIST dataset with a final accuracy of 95%. Note that, although 95% may seem low, it's actually very solid for EMNIST.
+Use the tool live [here](https://ocr.varak.dev).
+
+This is an optical character recognition (OCR) tool that extracts characters from drawings.  Using basic JS/HTML, we create a canvas to draw on, convert the drawing toa usable 28x28 pixel format, and send to the backend for prediction. In the backend, we use FastAPI to handle requests, with the only routes being `\` for the home page and `\predict` for predictions. The prediction route uses a pre-trained CNN model that is able to recognize all English characters and digits. For more details on the architecture, the dataset, and training process, check out [this writeup](https://github.com/intelligent-username/CNN/tree/main/char), which presents the simpler of two models trained for my writeup on CNNs (this one).
+
+## Usage
+
+Once again, the tool is hosted [here](https://ocr.varak.dev) for easy access. 
+
+Draw the character you want to recognize on the left canvas. The right canvas will display the top-k predictions, where k can be adjusted using the slider below it. The slider is capped at 15 since, after 15, all of the predictions are basically at 0% probability.
+
+To run this project locally, take the following steps:
+
+### Installation
+
+1. Clone this repository.
+
+```bash
+git clone https://github.com/intelligent-username/OCR
+cd OCR
+```
+
+2. Install the Python dependencies to a virtual environment.
+
+```bash
+python -m venv OCR-env
+OCR-env\Scripts\activate  # On Windows
+source OCR-env/bin/activate  # On macOS/Linux
+cd backend
+pip install -r requirements.txt
+```
+
+3. Run the backend.
+
+```bash
+uvicorn app:app --reload
+```
+
+4. Once the backend is running, go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your web browser to access the frontend. This link will appear in the terminal when you run the backend.
+
+## License
+
+This project is licensed under the MIT License. For details, see the [LICENSE](LICENSE) file.

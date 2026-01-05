@@ -3,6 +3,8 @@
 **pycache**/
 *cpython*
 
-# Tests
+# Tests, cache, etc.
 *test*
 *TEMP*
+*old*
+*OLD*
