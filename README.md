@@ -2,7 +2,7 @@
 title: EMNIST Predictor
 emoji: 🖊️
 colorFrom: blue
-colorTo: black
+colorTo: gray
 sdk: docker
 app_port: 7860
 ---
