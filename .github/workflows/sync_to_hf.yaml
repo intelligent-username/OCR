@@ -6,12 +6,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-      - name: Push to HF
+          fetch-depth: 1 # Only get the latest commit, ignores deep history
+      - name: Install HF Hub
+        run: pip install huggingface_hub
+      - name: Upload to HF
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push --force https://intelligent-username:$HF_TOKEN@huggingface.co/spaces/compendious/EMNIST-OCR main
+          huggingface-cli upload compendious/EMNIST-OCR . . \
+            --repo-type=space \
+            --token=$HF_TOKEN \
+            --exclude="backend/EMNIST_CNN.pth"
