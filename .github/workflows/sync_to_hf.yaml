@@ -1,27 +1,12 @@
-name: Sync to Hugging Face
-on:
-  push:
-    branches: [main]
-
+name: Sync
+on: [push]
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install HF Hub
-        run: pip install huggingface_hub
-
-      - name: Upload to HF
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: |
-          huggingface-cli upload compendious/EMNIST-OCR . . \
-            --repo-type=space \
-            --token=$HF_TOKEN
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: { python-version: '3.9' }
+      - run: pip install huggingface_hub
+      - env: { HF_TOKEN: '${{ secrets.HF_TOKEN }}' }
+        run: python -c "import os; from huggingface_hub import HfApi; HfApi().upload_folder(repo_id='compendious/EMNIST-OCR', folder_path='.', repo_type='space', token=os.environ['HF_TOKEN'], ignore_patterns=['.git*'])"
