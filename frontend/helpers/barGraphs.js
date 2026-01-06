@@ -1,3 +1,6 @@
+// Take response from API
+// Draw final output
+
 function drawPredictionGraph(canvas, predictions) {
     const ctx = canvas.getContext("2d");
     const w = canvas.width;

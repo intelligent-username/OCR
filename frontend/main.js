@@ -1,4 +1,4 @@
-// main.js is just for putting everything together quickly and simply. Don't grow into a monolith or complicate the project.
+
 
 const canvas = document.getElementById("draw-canvas");
 // Use willReadFrequently to optimize repeated getImageData readbacks

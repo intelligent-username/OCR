@@ -1,3 +1,5 @@
+// Just the footer w/ basic info
+
 function initFooter() {
     const footer = document.createElement('footer');
     footer.className = 'footer';

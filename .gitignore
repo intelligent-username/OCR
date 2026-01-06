@@ -3,6 +3,7 @@
 **pycache**/
 *cpython*
 backend/EMNIST_CNN.pth
+*.log
 
 # Tests, cache, etc.
 *test*
@@ -10,3 +11,4 @@ backend/EMNIST_CNN.pth
 *old*
 *OLD*
 
+.vscode/

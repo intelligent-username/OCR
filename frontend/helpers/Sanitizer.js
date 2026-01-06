@@ -1,3 +1,8 @@
+// Take Canvas input (left)
+// Convert 420x420 to 28x28
+// Then convert to Binary
+// So it can be sent to the API
+
 const blockSize = 15; // 420 / 28 = 15
 
 // Input Processor

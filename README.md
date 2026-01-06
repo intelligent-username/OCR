@@ -6,19 +6,24 @@ colorTo: gray
 sdk: docker
 app_port: 7860
 ---
+
 # Optical Character Recognition
 
 ![Demonstration](https://varak.dev/host/EMNIST-OCR-DEMO.webp)
 
 Use the tool live [here](https://ocr.varak.dev).
 
-This is an optical character recognition (OCR) tool that extracts characters from drawings.  Using basic JS/HTML, we create a canvas to draw on, convert the drawing toa usable 28x28 pixel format, and send to the backend for prediction. In the backend, we use FastAPI to handle requests, with the only routes being `/` for the home page and `/predict` for predictions. The prediction route uses a pre-trained CNN model that is able to recognize all English characters and digits. For more details on the architecture, the dataset, and training process, check out [this writeup](https://github.com/intelligent-username/CNN/tree/main/char), which presents the simpler of two models trained for my writeup on CNNs (this one). For a better understanding of CNNs in general, check out this [broader writeup](https://github.com/intelligent-username/CNN).
+This is an optical character recognition (OCR) tool that extracts characters from drawings. It's made with FastAPI for the backend, vanilla JS/HTML for the frontend, and the model was trained using PyTorch.
+
+The project creates a canvas to draw on, converts the drawing to a usable 28x28 pixel format, and sends it to the backend for prediction.
+
+The only two routes for the backend are `/` for the home page and `/predict` for prediction API. The prediction route recognizes all English characters and digits. For more details on the architecture, the dataset, and training process, check out [this writeup](https://github.com/intelligent-username/CNN/tree/main/char), which presents the simpler of two models trained for my [writeup on CNNs](https://github.com/intelligent-username/CNN).
 
 ## Usage
 
 Once again, the tool is hosted [here](https://ocr.varak.dev) for easy access. 
 
-Draw the character you want to recognize on the left canvas. The right canvas will display the top-k predictions, where k can be adjusted using the slider below it. The slider is capped at 15 since, after 15, all of the predictions are basically at 0% probability.
+Draw the character you want to recognize on the left canvas. The right canvas will display the top-k predictions, where k can be adjusted using the slider below it. The slider is capped at 15 since, after 15, all of the predictions are basically guaranteed to be at 0% probability.
 
 To run this project locally, take the following steps:
 
@@ -35,8 +40,8 @@ cd OCR
 
 ```bash
 python -m venv OCR-env
-OCR-env\Scripts\activate  # On Windows
-source OCR-env/bin/activate  # On macOS/Linux
+OCR-env\Scripts\activate        # On Windows
+source OCR-env/bin/activate     # On mac/Linux
 pip install -r requirements.txt
 ```
 

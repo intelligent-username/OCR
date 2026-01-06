@@ -1,12 +1,13 @@
 """
 VGG-style CNN for EMNIST character classification.
-See the README for a better description.
+See the README for a more detailed description.
 """
 
 # The .pth file (weights) for this model will be downloaded from HuggingFace by app.py
 # It's hosted at https://huggingface.co/compendious/EMNIST-OCR-WEIGHTS/
 # The file is EMNIST_CNN.pth
-# Go here to download directly: https://huggingface.co/compendious/EMNIST-OCR-WEIGHTS/resolve/main/EMNIST_CNN.pth?download=true
+# Go here to download directly: 
+#               https://huggingface.co/compendious/EMNIST-OCR-WEIGHTS/resolve/main/EMNIST_CNN.pth?download=true
 
 import torch
 import torch.nn as nn

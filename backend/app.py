@@ -1,6 +1,7 @@
 import torch as t
 import asyncio
 import os
+import shutil
 
 from backend.utils import predict_image
 from backend.model import EMNIST_VGG
@@ -54,8 +55,6 @@ if not os.path.exists(MODEL_PATH):
     # This downloads the file and returns the local path
     downloaded_path = hf_hub_download(repo_id=REPO_ID, filename=FILENAME)
     
-    # Optional: Move it to your backend folder so your existing load logic works
-    import shutil
     shutil.copy(downloaded_path, MODEL_PATH)
     print(f"Weights secured at {MODEL_PATH}")
 

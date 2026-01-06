@@ -4,6 +4,19 @@ import numpy as np
 MAX_CLASSES = 15
 
 def predict_image(image: list[float], model, device, top_k: int = 10) -> dict:
+    """
+    Docstring for predict_image
+    
+    :param image: Description
+    :type image: list[float]
+    :param model: Description
+    :param device: Description
+    :param top_k: Description
+    :type top_k: int
+    :return: Description
+    :rtype: dict
+    """
+
     # RESHAPE
     # Input comes in as flat 784 list -> (1 batch, 1 channel, 28 height, 28 width)
     x = t.tensor(image, dtype=t.float32).view(1, 1, 28, 28)
