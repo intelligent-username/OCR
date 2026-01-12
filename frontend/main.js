@@ -46,9 +46,6 @@ function performPrediction() {
         // console.log("Input Array: ", inputArray);
         // console.log("Temp: ", temp);
 
-        // (Preview drawing removed — bar graph will visualize predictions)
-
-        // Send to server with error handling (non-blocking)
         fetch("/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -85,7 +82,7 @@ canvas.addEventListener("mousedown", (e) => {
     ctx.beginPath();
     ctx.moveTo(x, y);
     
-    if (e.button === 2) { // Right click
+    if (e.button === 2) { // Right click erases
         erase = true;
         ctx.strokeStyle = "white";
     } else {
